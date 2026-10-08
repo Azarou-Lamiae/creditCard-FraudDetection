@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Fraud Detection</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 25%;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .fraud { color: red; }
+        .normal { color: green; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #333;
+            color: white;
+        }
+
+        .stats {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1> Dashboard Fraud Detection</h1>
+
+
+
+
+<div class="cards">
+    <div class="card">
+        <h3>Total</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Fraudes</h3>
+        <p class="fraud">{{ frauds }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Normales</h3>
+        <p class="normal">{{ normal }}</p>
+    </div>
+</div>
+
+
+
+<div class="stats">
+    <h2> Statistiques du modèle</h2>
+    <p><strong>Modèle :</strong> {{ model }}</p>
+    <p><strong>AUC :</strong> {{ auc }}</p>
+    <p><strong>Threshold :</strong> {{ threshold }}</p>
+    <p><strong>Features :</strong> {{ features }}</p>
+</div>
+
+
+
+<h2> Historique (dernières prédictions)</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Probabilité</th>
+            <th>Label</th>
+        </tr>
+    </thead>
+    <tbody id="history-table"></tbody>
+</table>
+
+<script>
+
+
+fetch("/history")
+.then(res => res.json())
+.then(data => {
+    let table = document.getElementById("history-table");
+
+    data.forEach(row => {
+        let tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${row[0]}</td>
+            <td>${parseFloat(row[1]).toFixed(4)}</td>
+            <td class="${row[2].toLowerCase() === 'fraud' ? 'fraud' : 'normal'}">
+                ${row[2]}
+            </td>
+        `;
+
+        table.appendChild(tr);
+    });
+});
+
+</script>
+
+</body>
+</html>

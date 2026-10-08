@@ -1,0 +1,22 @@
+# Dataset (too large for GitHub, see data/README.md)
+data/creditcard.csv
+
+# Local runtime data (prediction history)
+instance/
+*.db
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

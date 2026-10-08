@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat Analyse</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .fraud {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .normal {
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .prob {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: #2c7be5;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+
+        a:hover {
+            background: #1a5dcc;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h2>Résultat de l'Analyse</h2>
+
+    {% if result.label == "fraud" %}
+        <div class="fraud"> FRAUDE DETECTÉE</div>
+    {% else %}
+        <div class="normal"> TRANSACTION NORMALE</div>
+    {% endif %}
+
+    <div class="prob">
+        Probabilité : <strong>{{ result.probability | round(4) }}</strong>
+    </div>
+
+    <a href="/">Nouvelle analyse</a>
+
+</div>
+
+</body>
+</html>

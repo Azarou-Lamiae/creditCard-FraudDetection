@@ -1,0 +1,6 @@
+{
+    "auc": 0.9816999816246138,
+    "threshold": 0.9165971,
+    "features": 30,
+    "model": "FraudDetector v1"
+}
